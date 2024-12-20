@@ -2,9 +2,10 @@
 ---
 
 ## Deliverables
-1. **GitHub Repository**: [Link to Repository](#)
-2. **Architecture Diagram**: [Insert image reference in github]
-3. **EC2 Instance Screenshot**: [Insert image reference in github]
+1. **GitHub Repository**: [Link to Repository](https://github.com/asian-code/Coalfire-Tech-Challenge)
+2. **Architecture Diagram**: ![Diagram](https://github.com/asian-code/Coalfire-Tech-Challenge/blob/master/Other/diagram.png)
+
+3. **EC2 Instance Screenshot**: ![Screenshot](https://github.com/asian-code/Coalfire-Tech-Challenge/blob/master/Other/coalfire-ec2-screenshot.png)
 4. **Solution Write-Up**
 5. **Functional README**: 
 
@@ -24,10 +25,10 @@ The AWS architecture includes the following components:
 - **S3 Buckets**:
   - "Images" bucket with lifecycle policy to move objects older than 90 days to Glacier.
   - "Logs" bucket with lifecycle policies for Active and Inactive folders.
-- **IAM Roles** for log writing and S3 bucket access.
+- **IAM Roles** for log writing into Logs bucket and read access to images bucket.
 
 ### Architecture Diagram
-[Insert the diagram of the AWS architecture here.]
+
 
 ---
 
@@ -41,10 +42,11 @@ The AWS architecture includes the following components:
 
 ### EC2 Instance
 - Configured an EC2 instance in Sub2 with:
-  - **OS**: Red Hat Linux.
+  - **OS**: Red Hat Linux 9
   - **Instance Type**: `t2.micro`.
   - **Storage**: 20 GB.
-- Verified access by logging into the instance.
+  - **Security**: SSH Key authenication
+- Verified access by logging into the instance via key file.
 
 ### Auto Scaling Group (ASG)
 - Configured an ASG to deploy instances in Sub3 and Sub4:
@@ -55,13 +57,13 @@ The AWS architecture includes the following components:
 ### Application Load Balancer (ALB)
 - Configured an ALB to:
   - Listen on TCP port 80 (HTTP).
-  - Forward traffic to ASG instances on port 443.
+  - Forward traffic to ASG instances on port 443 via target group.
 
 ### S3 Buckets
-- **"Images" Bucket**:
-  - Folder: `archive`.
-  - Lifecycle Policy: Move objects older than 90 days to Glacier.
-- **"Logs" Bucket**:
+- **"Images" Bucket (eric-coalfire-images)**:
+  - Folders: `archive` and `memes`.
+  - Lifecycle Policy: Move "memes" objects older than 90 days to Glacier.
+- **"Logs" Bucket (eric-coalfire-logs)**:
   - Folders: `Active` and `Inactive`.
   - Lifecycle Policies:
     - `Active`: Move objects older than 90 days to Glacier.
@@ -72,25 +74,14 @@ The AWS architecture includes the following components:
   - Allow ASG instances to read from the "Images" bucket.
   - Allow EC2 instances to write logs to the "Logs" bucket.
 
----
+### Security Groups
+- Configured "public-sg" security group to: ec2 in sub2
+  - allow only SSH traffic inbound
+- Configured "private-sg" security group to: asg instances
+  - allow incoming HTTPS traffic from ALB (alb-sg)
+- Configured "alb-sg" security group to: alb
+  - allow incoming HTTP traffic
+  - allow outbound HTTPS traffic to ASG instances (priavte-sg)
 
-## Challenges and Solutions
-1. **Networking Configuration**: Ensured proper routing and security groups for public and private subnets.
-2. **IAM Role Configuration**: Created least privilege policies for accessing S3 buckets.
-3. **Automation**: Used Terraform modules to simplify resource creation.
-
----
-
-## References
-- [Backend setup](https://developer.hashicorp.com/terraform/language/backend/s3)
-- [Coalfire Terraform Modules](https://github.com/orgs/Coalfire-CF/repositories?type=public&q=terraform-aws)
-- [Terraform AWS Provider Documentation](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
-- [Red Hat EC2 Setup](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/)
-
----
-
-## Next Steps
-1. Finalize and upload all artifacts to the GitHub repository.
-2. Share the GitHub repository link and documentation with the recruiting POC.
-
----
+### Nat Gateway
+- Configured an NG on public subnet to allow private subnets to access the internet
