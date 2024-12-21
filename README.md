@@ -2,12 +2,13 @@
 
 ## Deliverables :heavy_check_mark:
 
+- **My Notes & Refs**: :point_right: [Check it out!](https://github.com/asian-code/Coalfire-Tech-Challenge/blob/master/NOTES.md) :point_left:
 - **GitHub Repository**: [This Repo](https://github.com/asian-code/Coalfire-Tech-Challenge)
 - **Architecture Diagram**:
   ![Architecture Diagram](https://github.com/asian-code/Coalfire-Tech-Challenge/blob/master/Other/diagram.png)
 - **EC2 Instance Screenshot**: 
   ![EC2 Screenshot](https://github.com/asian-code/Coalfire-Tech-Challenge/blob/master/Other/coalfire-ec2-screenshot.png)`(Shows how I successfully connected to the EC2 instance (subnet 2) using SSH with key authentication)`
-- **My Notes & Refs**: :point_right: [Check it out!](https://github.com/asian-code/Coalfire-Tech-Challenge/blob/master/NOTES.md) :point_left:
+
 ## Architecture Components :gear:
 
 ### Network Infrastructure :globe_with_meridians:
