@@ -33,6 +33,10 @@
   - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_instance_profile
   - Visual IAM Policy editor in AWS console (to help build out the json policies)
 
+## Nat Gateway:
+ - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/nat_gateway
+ - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eip
+ 
 ## Other Resources
 * Utility:
   - https://developer.hashicorp.com/terraform/language/functions/base64encode

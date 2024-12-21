@@ -65,19 +65,44 @@ resource "aws_route_table_association" "public_association" { # loop through eac
   subnet_id      = each.value.id
   route_table_id = aws_route_table.public.id
 }
-resource "aws_route_table" "private" { # local route is added by default
+resource "aws_route_table" "private1" { # local route is added by default
   vpc_id = aws_vpc.main.id
+  route {
+    cidr_block = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.ng1.id
+  }
 
   tags = {
     createdBy = "terraform"
-    Name      = "private-rt"
+    Name      = "private-rt-1"
   }
 }
+resource "aws_route_table" "private2" { # local route is added by default
+  vpc_id = aws_vpc.main.id
+  route {
+    cidr_block = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.ng2.id
+  }
 
-resource "aws_route_table_association" "private_association" { # loop through each private subnet and assign the route table
-  for_each       = aws_subnet.private
-  subnet_id      = each.value.id
-  route_table_id = aws_route_table.private.id
+  tags = {
+    createdBy = "terraform"
+    Name      = "private-rt-2"
+  }
+}
+# Have to use different route tables since using different Nat gateway for each AZ
+# resource "aws_route_table_association" "private_association" { # loop through each private subnet and assign the route table
+#   for_each       = aws_subnet.private
+#   subnet_id      = each.value.id
+#   route_table_id = aws_route_table.private.id
+# }
+
+resource "aws_route_table_association" "private1" {
+  subnet_id = aws_subnet.private["subnet3"].id
+  route_table_id = aws_route_table.private1.id
+}
+resource "aws_route_table_association" "private2" {
+  subnet_id = aws_subnet.private["subnet4"].id
+  route_table_id = aws_route_table.private2.id
 }
 resource "aws_security_group" "private_sg" {
   name        = "private-sg"
@@ -124,4 +149,32 @@ resource "aws_vpc_security_group_egress_rule" "allow_https_out_lb" {
   from_port                    = 443
   ip_protocol                  = "tcp"
   to_port                      = 443
+}
+resource "aws_nat_gateway" "ng1" {
+  allocation_id = aws_eip.ip1.id
+  subnet_id     = aws_subnet.public["subnet1"].id
+
+  tags = {
+    createdBy = "terraform"
+    Name = "my-tf-natGateway1"
+  }  
+  depends_on = [aws_internet_gateway.gw]
+}
+resource "aws_nat_gateway" "ng2" {
+  allocation_id = aws_eip.ip2.id
+  subnet_id     = aws_subnet.public["subnet2"].id
+
+  tags = {
+    createdBy = "terraform"
+    Name = "my-tf-natGateway2"
+  }  
+  depends_on = [aws_internet_gateway.gw]
+}
+resource "aws_eip" "ip1" {
+  domain = "vpc"
+  depends_on                = [aws_internet_gateway.gw]
+}
+resource "aws_eip" "ip2" {
+  domain = "vpc"
+  depends_on                = [aws_internet_gateway.gw]
 }
