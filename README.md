@@ -1,16 +1,16 @@
-# AWS Technical Challenge - Coalfire
+# AWS Technical Challenge - Coalfire :fire:
 
-## Deliverables
+## Deliverables :heavy_check_mark:
 
 - **GitHub Repository**: [This Repo](https://github.com/asian-code/Coalfire-Tech-Challenge)
 - **Architecture Diagram**:
   ![Architecture Diagram](https://github.com/asian-code/Coalfire-Tech-Challenge/blob/master/Other/diagram.png)
 - **EC2 Instance Screenshot**: 
-  ![EC2 Screenshot](https://github.com/asian-code/Coalfire-Tech-Challenge/blob/master/Other/coalfire-ec2-screenshot.png)`(Shows how I successfully connected to the EC2 instance using SSH with key authentication)`
-- **My Notes & Refs**: ![Check it out!](https://github.com/asian-code/Coalfire-Tech-Challenge/blob/master/NOTES.md) 
-## Architecture Components
+  ![EC2 Screenshot](https://github.com/asian-code/Coalfire-Tech-Challenge/blob/master/Other/coalfire-ec2-screenshot.png)`(Shows how I successfully connected to the EC2 instance (subnet 2) using SSH with key authentication)`
+- **My Notes & Refs**: :point_right: [Check it out!](https://github.com/asian-code/Coalfire-Tech-Challenge/blob/master/NOTES.md) :point_left:
+## Architecture Components :gear:
 
-### Network Infrastructure
+### Network Infrastructure :globe_with_meridians:
 
 - **VPC Configuration**
   - CIDR Block: `10.1.0.0/16`
@@ -24,7 +24,7 @@
   | Sub3 | `10.1.2.0/24` | Private | ASG deployment |
   | Sub4 | `10.1.3.0/24` | Private | ASG deployment |
 
-### Compute Resources
+### Compute Resources :desktop_computer:
 
 #### EC2 Instance (`MyVM`)
 - Location: Sub2 (Public subnet)
@@ -48,7 +48,7 @@
   - Target: ASG instances (`Port 443`)
   - Distribution: Cross-AZ load balancing
 
-### Storage Solutions
+### Storage Solutions :floppy_disk:
 
 #### S3 Buckets
 
@@ -63,7 +63,7 @@
   - `/Active` → Glacier after 90 days
   - `/Inactive` → Delete after 90 days
 
-### Security Configuration
+### Security Configuration :lock:
 
 #### Security Groups
 

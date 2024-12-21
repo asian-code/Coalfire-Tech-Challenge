@@ -1,6 +1,6 @@
 # AWS Challenge Notes
 
-### Issues:
+### Issues: :exclamation:
 * Installation of httpd: Scripting the installation of httpd was not feasible because the ASG instances are in a subnet without internet access. To resolve this, I added a NAT gateway in the public subnet and updated the route tables to allow outbound traffic for the ASG instances to update and install necessary packages.
 
 * ALB(Application Load Balancer) Configuration: `Instructions say to listen for HTTP and forward to ASG instances via HTTPS.`Shouldn't the ALB handle and terminate HTTPS traffic, then forward it to the instances over HTTP rather than the other way around?  This setup would require an ACM certificate.
@@ -10,7 +10,7 @@
 ## General Documentation
 * https://registry.terraform.io/providers/hashicorp/aws
 
-## Modules used
+## Modules used :fire:
 - https://github.com/Coalfire-CF/terraform-aws-ec2
 - https://github.com/Coalfire-CF/terraform-aws-s3
 
