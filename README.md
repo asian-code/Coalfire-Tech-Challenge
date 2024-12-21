@@ -89,14 +89,8 @@
 | region | the region where resources will be created in | string | "us-east-2" | no
 | vpc_cidr | the cidr of the main vpc | string | "10.1.0.0/16" | no
 | ec2_type | the VM instance type `ex:t3.micro` | string | "t2.micro" | no
-| private_subnets | cidr of the `private` subnets to create | map(string) | `{
-    subnet3 = "10.1.2.0/24"
-    subnet4 = "10.1.3.0/24"
-  }` | no
-| public_subnets | cidr of the `public` subnets to create | map(string) | `{
-    subnet1 = "10.1.0.0/24"
-    subnet2 = "10.1.1.0/24"
-  }` | no
+| private_subnets | cidr of the `private` subnets to create | map(string) | <pre>{<br>    subnet3 = "10.1.2.0/24"<br>    subnet4 = "10.1.3.0/24"<br>}</prev> | no
+| public_subnets | cidr of the `public` subnets to create | map(string) | <pre>{<br>    subnet1 = "10.1.0.0/24"<br>    subnet2 = "10.1.1.0/24"<br>}</prev> | no
 | ec2_key_name | key pair name used to connect to ec2 | string | "hehe" | yes
 | images_bucket_name | name of the s3 bucket to store images | string | "eric-coalfire-images" | no
 | logs_bucket_name | name of the s3 bucket to store logs | string | "eric-coalfire-logs" | no
