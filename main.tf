@@ -60,8 +60,8 @@ resource "aws_iam_role_policy_attachment" "ec2_log_policy_attach" {
 }
 # Create the policy, then attach the policy to the role
 
-resource "aws_iam_role" "ec2_images_role" {
-  name = "eric-coalfire-images-role"
+resource "aws_iam_role" "ec2_images_logs_role" {
+  name = "eric-coalfire-Getimages-addLogs-role"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -100,10 +100,13 @@ resource "aws_iam_policy" "s3_read_policy" { # used the IAM policy generator in 
 }
 
 resource "aws_iam_role_policy_attachment" "ec2_s3_policy_attach" {
-  role       = aws_iam_role.ec2_images_role.name
+  role       = aws_iam_role.ec2_images_logs_role.name
   policy_arn = aws_iam_policy.s3_read_policy.arn
 }
-
+resource "aws_iam_role_policy_attachment" "ec2_log_policy_attach2" {
+  role       = aws_iam_role.ec2_images_logs_role.name
+  policy_arn = aws_iam_policy.log_write_policy.arn
+}
 module "images_bucket" {
   source = "github.com/Coalfire-CF/terraform-aws-s3"
 

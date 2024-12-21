@@ -122,6 +122,8 @@ module "myVM" {
   ec2_key_pair    = var.ec2_key_name
   ebs_kms_key_arn = aws_kms_key.ebs.arn
   ebs_optimized   = false
+
+  iam_policies = [ aws_iam_policy.log_write_policy.arn ]
   # Storage
   root_volume_size = 20
 
@@ -266,7 +268,7 @@ resource "aws_launch_template" "launch" {
 
 resource "aws_iam_instance_profile" "asg_profile" {
   name = "asg_profile"
-  role = aws_iam_role.ec2_images_role.name
+  role = aws_iam_role.ec2_images_logs_role.name
 }
 resource "aws_lb_target_group" "asg_tg" {
   name     = "asg-tg"
