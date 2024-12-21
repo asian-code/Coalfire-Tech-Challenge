@@ -5,8 +5,8 @@
 - **GitHub Repository**: [Link to Repository](https://github.com/asian-code/Coalfire-Tech-Challenge)
 - **Architecture Diagram**:
   ![Architecture Diagram](https://github.com/asian-code/Coalfire-Tech-Challenge/blob/master/Other/diagram.png)
-- **EC2 Instance Screenshot**:
-  ![EC2 Screenshot](https://github.com/asian-code/Coalfire-Tech-Challenge/blob/master/Other/coalfire-ec2-screenshot.png)
+- **EC2 Instance Screenshot**: 
+  ![EC2 Screenshot](https://github.com/asian-code/Coalfire-Tech-Challenge/blob/master/Other/coalfire-ec2-screenshot.png)`(Shows how I successfully connected to the EC2 instance using SSH with key authentication)`
 
 ## Architecture Components
 
@@ -26,18 +26,18 @@
 
 ### Compute Resources
 
-#### EC2 Instance `MyVM`
+#### EC2 Instance (`MyVM`)
 - Location: Sub2 (Public subnet)
 - Specifications:
-  - OS: Red Hat Linux (RHEL 9)
-  - Instance Type: t2.micro
-  - Storage: 20 GB
+  - OS: Red Hat Linux (`RHEL 9`)
+  - Instance Type: `t2.micro`
+  - Storage: `20 GB`
   - Access: SSH key authentication
 
 #### Auto Scaling Group (ASG)
 - Deployment: Sub3 and Sub4 (Private subnets)
 - Configuration:
-  - Scale: 2-6 instances
+  - Scale: `2-6 instances`
   - Template: Apache web server (`httpd`)
   - IAM Integration: Read access to Images bucket, write access to Logs bucket
 

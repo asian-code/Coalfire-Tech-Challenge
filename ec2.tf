@@ -229,7 +229,7 @@ resource "aws_autoscaling_group" "asg" {
   name             = "dualAZ-asg"
   min_size         = 2
   max_size         = 6
-  desired_capacity = 3
+  desired_capacity = 4
   launch_template {
     id      = aws_launch_template.launch.id
     version = "$Latest"
