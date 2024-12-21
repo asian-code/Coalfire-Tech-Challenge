@@ -26,11 +26,11 @@
 
 ### Compute Resources
 
-#### EC2 Instance
+#### EC2 Instance `MyVM`
 - Location: Sub2 (Public subnet)
 - Specifications:
-  - OS: Red Hat Linux 9
-  - Instance Type: `t2.micro`
+  - OS: Red Hat Linux (RHEL 9)
+  - Instance Type: t2.micro
   - Storage: 20 GB
   - Access: SSH key authentication
 
@@ -44,8 +44,8 @@
 ### Load Balancing
 
 - **Application Load Balancer**
-  - Listener: HTTP (Port 80)
-  - Target: ASG instances (Port 443)
+  - Listener: HTTP (`Port 80`)
+  - Target: ASG instances (`Port 443`)
   - Distribution: Cross-AZ load balancing
 
 ### Storage Solutions
@@ -69,7 +69,7 @@
 
 | Group | Purpose | Rules |
 |-------|----------|-------|
-| `public-sg` | EC2 in Sub2 | Inbound: SSH only |
+| `MyVM-sg` | EC2 in Sub2 | Inbound: SSH only |
 | `private-sg` | ASG instances | Inbound: HTTPS from ALB |
 | `alb-sg` | Load Balancer | Inbound: HTTP, Outbound: HTTPS to ASG |
 
@@ -83,6 +83,25 @@
 
 ---
 #### Variables
+
+| Name | Description | type | default | required |
+|-------|----------|-------|-------|-------|
+| region | the region where resources will be created in | string | "us-east-2" | no
+| vpc_cidr | the cidr of the main vpc | string | "10.1.0.0/16" | no
+| ec2_type | the VM instance type `ex:t3.micro` | string | "t2.micro" | no
+| private_subnets | cidr of the `private` subnets to create | map(string) | `{
+    subnet3 = "10.1.2.0/24"
+    subnet4 = "10.1.3.0/24"
+  }` | no
+| public_subnets | cidr of the `public` subnets to create | map(string) | `{
+    subnet1 = "10.1.0.0/24"
+    subnet2 = "10.1.1.0/24"
+  }` | no
+| ec2_key_name | key pair name used to connect to ec2 | string | "hehe" | yes
+| images_bucket_name | name of the s3 bucket to store images | string | "eric-coalfire-images" | no
+| logs_bucket_name | name of the s3 bucket to store logs | string | "eric-coalfire-logs" | no
+| image_folders | list of folders to create in images s3 bucket | list(string) | ["archive", "memes"] | no
+| log_folders | list of folders to create in logs s3 bucket | list(string) | ["Active folder", "Inactive folder"] | no
 
 #### Outputs
 | Name | Description |
